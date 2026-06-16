@@ -33,6 +33,19 @@ pipeline {
                 sh 'mvn clean package -DskipTests'
             }
         }
+
+        stage('Run') {
+            steps {
+                sh '''
+                pkill -f "java -jar" || true
+
+                nohup java -jar target/*.jar \
+                --spring.profiles.active=dev \
+                --server.port=8081 \
+                > app.log 2>&1 &
+                '''
+            }
+        }
     }
 
     post {
