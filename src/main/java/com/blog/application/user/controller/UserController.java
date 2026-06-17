@@ -17,6 +17,12 @@ public class UserController {
     @Autowired
     private final UserService userService;
 
+
+    @GetMapping("/hii")
+    public String hii(){
+        return "hii from backend";
+    }
+
     @GetMapping("getpasskey")
     public String helloUser(){
         return "61d7a750b41d45f8bf1ac113116e963a";
