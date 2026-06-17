@@ -17,10 +17,10 @@ public class UserController {
     @Autowired
     private final UserService userService;
 
-
-//    public String helloUser(){
-//        return "61d7a750b41d45f8bf1ac113116e963a";
-//    }
+    @GetMapping("getpasskey")
+    public String helloUser(){
+        return "61d7a750b41d45f8bf1ac113116e963a";
+    }
 
     @GetMapping()
     public ResponseEntity<ApiResponse> getUserDeatils(@RequestParam String email){
