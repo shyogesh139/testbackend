@@ -1,6 +1,6 @@
 package com.blog.application.user.repos;
 
-import com.blog.application.entity.UserEntity;
+import com.blog.application.user.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

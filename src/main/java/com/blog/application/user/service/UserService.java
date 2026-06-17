@@ -1,15 +1,16 @@
 package com.blog.application.user.service;
 
-import com.blog.application.entity.UserEntity;
+import com.blog.application.user.UserExceptionController;
+import com.blog.application.user.entity.UserEntity;
 import com.blog.application.user.IO.CreateUserRequest;
 import com.blog.application.user.repos.UserRepo;
+import com.blog.application.userexceptions.UserAlreadyExists;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -67,7 +68,7 @@ public class UserService {
 
     @Transactional
     public void deleteUser(String email){
-      UserEntity user = userRepo.findByEmail(email).orElseThrow(()->  new RuntimeException("user not found"));
+      UserEntity user = userRepo.findByEmail(email).orElseThrow(()->  new UserAlreadyExists("user not found"));
 
       userRepo.delete(user);
 

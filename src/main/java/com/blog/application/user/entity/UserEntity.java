@@ -1,4 +1,4 @@
-package com.blog.application.entity;
+package com.blog.application.user.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

@@ -1,4 +1,4 @@
-package com.blog.application.entity;
+package com.blog.application.user.entity;
 
 public enum ROLE {
     ADMIN,
