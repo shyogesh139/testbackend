@@ -1,6 +1,5 @@
 package com.blog.application.user.service;
 
-import com.blog.application.user.UserExceptionController;
 import com.blog.application.user.entity.UserEntity;
 import com.blog.application.user.IO.CreateUserRequest;
 import com.blog.application.user.repos.UserRepo;
@@ -20,7 +19,11 @@ public class UserService {
     private final UserRepo userRepo;
 
     public CreateUserRequest RegisterUser(CreateUserRequest userRequest){
+//        UserEntity user = userRepo.findByEmail(userRequest.getEmail()).orElseThrow(()-> new UserAlreadyExists("User Already Exists"));
 
+        if (userRepo.findByEmail(userRequest.getEmail()).isPresent()){
+            throw new UserAlreadyExists(userRequest.getEmail());
+        }
         return convertToUserRequest( userRepo.save(convetToUserEntity(userRequest)));
 
     }
@@ -68,7 +71,7 @@ public class UserService {
 
     @Transactional
     public void deleteUser(String email){
-      UserEntity user = userRepo.findByEmail(email).orElseThrow(()->  new UserAlreadyExists("user not found"));
+      UserEntity user = userRepo.findByEmail(email).orElseThrow(()->  new RuntimeException("user not found"));
 
       userRepo.delete(user);
 
