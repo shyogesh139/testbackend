@@ -19,7 +19,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                sudo mkdir -p /opt/backend
+                mkdir -p /opt/backend
 
                 cp target/*.jar /opt/backend/application.jar
 
