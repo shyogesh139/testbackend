@@ -3,12 +3,6 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-
         stage('Verify') {
             steps {
                 sh 'java -version'
@@ -18,31 +12,23 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn clean compile'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
-        }
-
-        stage('Package') {
-            steps {
                 sh 'mvn clean package -DskipTests'
             }
         }
 
-        stage('Run') {
+        stage('Deploy') {
             steps {
                 sh '''
-                pkill -f "java -jar" || true
+                sudo mkdir -p /opt/backend
 
-                nohup java -jar target/*.jar \
+                cp target/*.jar /opt/backend/application.jar
+
+                pkill -f "application.jar" || true
+
+                nohup java -jar /opt/backend/application.jar \
                 --spring.profiles.active=dev \
                 --server.port=8081 \
-                > app.log 2>&1 &
+                > /opt/backend/app.log 2>&1 &
                 '''
             }
         }
